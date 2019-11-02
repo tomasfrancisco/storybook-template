@@ -1,6 +1,6 @@
 {
   "name": "storybook-template",
-  "version": "0.0.0",
+  "version": "0.0.0-alpha",
   "description": "Storybook + React + Typescript = ♥",
   "license": "MIT",
   "author": "@tomasfrancisco",
@@ -11,7 +11,7 @@
     "build": "build-storybook -c .storybook -o public",
     "build:package": "rm -rf lib && tsc",
     "lint": "tsc --noEmit && eslint '*/**/*.{ts,tsx}' --quiet --fix",
-    "get-version": "echo $npm_package_version"
+    "get-version": "echo \"package.json: v$npm_package_version\""
   },
   "dependencies": {
     "@emotion/core": "^10.0.22",

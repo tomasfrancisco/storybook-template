@@ -2,11 +2,30 @@ name: Release Tag
 on: [push]
 
 jobs:
-  publish:
-    name: 'Ready to Publish?'
+  check-version-change:
+    name: Check Version Change
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
 
-      - name: Is going to release?
-        run: git describe --abbrev=0 --tags
+      - name: New Version?
+        env: |
+          published_version=`git describe --abbrev=0 --tags`
+          current_version=`yarn get-version | awk '/package.json: v[0-9]+.[0-9]+.[0-9]+/ {print $2}'`
+          if ["$published_version" != "$current_version"]; then
+            echo ::set-output name=new-version::true
+          fi
+
+  not-publish:
+    name: Publish
+    needs: check-version-change
+    runs-on: ubuntu-18.04
+    if: steps.check-version-change.outputs.new-version != 'true'
+    run: echo "Not Running"
+
+  publish:
+    name: Publish
+    needs: check-version-change
+    runs-on: ubuntu-18.04
+    if: steps.check-version-change.outputs.new-version = 'true'
+    run: echo "Running"
