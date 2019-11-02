@@ -16,16 +16,12 @@ jobs:
             echo ::set-output name=new-version::true
           fi
 
-  not-publish:
-    name: Publish
-    needs: check-version-change
-    runs-on: ubuntu-18.04
-    if: steps.check-version-change.outputs.new-version != 'true'
-    run: echo "Not Running"
-
   publish:
     name: Publish
     needs: check-version-change
     runs-on: ubuntu-18.04
     if: steps.check-version-change.outputs.new-version = 'true'
-    run: echo "Running"
+    steps:
+      - name: Publishing
+        run: |
+          echo "Running"
