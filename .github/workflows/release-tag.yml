@@ -3,6 +3,8 @@ on: [push]
 
 jobs:
   publish:
+    name: 'Ready to Publish?'
+    runs-on: ubuntu-18.04
     steps:
       - name: Is going to release?
         run: git describe --abbrev=0 --tags
