@@ -10,7 +10,8 @@
     "start": "start-storybook -p 8080",
     "build": "build-storybook -c .storybook -o public",
     "build:package": "rm -rf lib && tsc",
-    "lint": "tsc --noEmit && eslint '*/**/*.{ts,tsx}' --quiet --fix"
+    "lint": "tsc --noEmit && eslint '*/**/*.{ts,tsx}' --quiet --fix",
+    "get-version": "echo $npm_package_version"
   },
   "dependencies": {
     "@emotion/core": "^10.0.22",
