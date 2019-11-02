@@ -6,5 +6,7 @@ jobs:
     name: 'Ready to Publish?'
     runs-on: ubuntu-18.04
     steps:
+      - uses: actions/checkout@v1
+
       - name: Is going to release?
         run: git describe --abbrev=0 --tags
