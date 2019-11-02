@@ -1,7 +1,8 @@
 name: Release Tag
 on: [push]
 
-steps:
+jobs:
   publish:
-    - name: Is going to release?
-      run: git describe --abbrev=0 --tags
+    steps:
+      - name: Is going to release?
+        run: git describe --abbrev=0 --tags
