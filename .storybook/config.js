@@ -1,4 +1,3 @@
-import { loadStories } from "./load-stories";
 import { configure } from "@storybook/react";
 
-configure(loadStories, module);
+configure(require.context("../src", true, /\.story\.tsx$/), module);
