@@ -1,5 +1,5 @@
-import { css } from "@emotion/core";
-import React, { FC } from "react";
+import { css } from '@emotion/core';
+import React, { FC } from 'react';
 
 export const Button: FC = ({ ...props }) => (
   <button

@@ -1,11 +1,11 @@
-import React from "react";
-import { Button } from ".";
+import React, { FC } from 'react';
+import { Button } from '.';
 
-export default { title: "Button" };
+export default { title: 'Button' };
 
-export const withText = () => <Button>Hello Button</Button>;
+export const withText: FC = () => <Button>Hello Button</Button>;
 
-export const withEmoji = () => (
+export const withEmoji: FC = () => (
   <Button>
     <span role="img" aria-label="so cool">
       😀 😎 👍 💯
