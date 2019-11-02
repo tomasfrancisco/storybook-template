@@ -4,5 +4,5 @@
 
 ## Stack
 
-⚛️ [React](https://reactjs.org/)
-💅 [Emotion](https://emotion.sh)
+- ⚛️ [React](https://reactjs.org/)
+- 💅 [Emotion](https://emotion.sh)
