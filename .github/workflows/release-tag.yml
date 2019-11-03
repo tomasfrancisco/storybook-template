@@ -19,6 +19,6 @@ jobs:
             echo ::set-output name=new-version::'false'
           fi
       - name: Publishing
-        if: steps.check-version.outputs.new-version = 'true'
+        if: steps.check-version.outputs.new-version == 'true'
         run: |
           echo "Running"
