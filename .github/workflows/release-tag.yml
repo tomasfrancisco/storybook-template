@@ -15,7 +15,7 @@ jobs:
           echo $published_version
           current_version=`npx -c 'echo "v$npm_package_version"'`
           echo $current_version
-          if ["$published_version" = "$current_version"]; then
+          if [ "$published_version" = "$current_version" ]; then
             echo ::set-output name=new-version::'false'
           else
             echo ::set-output name=new-version::'true'
