@@ -12,9 +12,9 @@ jobs:
         id: check-version
         run: |
           published_version=`git describe --abbrev=0 --tags`
-          echo $published_version
+          echo 'Published version: $published_version'
           current_version=`npx -c 'echo "v$npm_package_version"'`
-          echo $current_version
+          echo 'Current version: $current_version'
           if [ "$published_version" = "$current_version" ]; then
             echo ::set-output name=new-version::'false'
           else
