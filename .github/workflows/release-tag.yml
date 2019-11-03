@@ -1,14 +1,14 @@
-name: Release Tag
+name: Release
 on: [push]
 
 jobs:
-  check-version-change:
-    name: Check Version Change
+  release:
+    name: Release
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
 
-      - name: New Version?
+      - name: Ready?
         id: check-version
         run: |
           published_version=`git describe --abbrev=0 --tags`
@@ -21,7 +21,7 @@ jobs:
             echo ::set-output name=new-version::'true'
           fi
 
-      - name: Publishing
+      - name: Release
         if: steps.check-version.outputs.new-version == 'true'
         run: |
           echo "Running"
