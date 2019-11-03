@@ -9,16 +9,15 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: New Version?
-        id: check-version
         run: |
           published_version=`git describe --abbrev=0 --tags`
           current_version=`yarn get-version | awk '/package.json: v[0-9]+.[0-9]+.[0-9]+/ {print $2}'`
           if ["$published_version" != "$current_version"]; then
-            echo ::set-output name=new-version::'true'
+            exit 0;
           else
             exit 1;
           fi
       - name: Publishing
-        if: steps.check-version.outputs.new-version == 'true'
+        if: success()
         run: |
           echo "Running"
