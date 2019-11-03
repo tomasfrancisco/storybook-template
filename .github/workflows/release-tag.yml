@@ -16,7 +16,7 @@ jobs:
           if ["$published_version" != "$current_version"]; then
             echo ::set-output name=new-version::'true'
           else
-            echo ::set-output name=new-version::'false'
+            exit 1;
           fi
       - name: Publishing
         if: steps.check-version.outputs.new-version == 'true'
