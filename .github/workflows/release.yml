@@ -1,5 +1,5 @@
 name: Release
-on: [push]
+on: [release]
 
 jobs:
   release:
@@ -8,21 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Ready?
-        run: |
-          published_version=`git describe --abbrev=0 --tags`
-          echo "Published version: $published_version"
-          current_version=`npx -c 'echo "v$npm_package_version"'`
-          echo "Current version: $current_version"
-          if [ "$published_version" = "$current_version" ]; then
-            # Continue workflow 
-            exit 1
-          else
-            # Stop workflow
-            exit 0
-          fi
-
       - name: Release
-        if: success()
         run: |
-          echo "Running"
+          echo "Run Release"

@@ -1,5 +1,5 @@
 name: Master
-on: [pull_request]
+on: [push]
 
 jobs:
   lint:
@@ -34,3 +34,23 @@ jobs:
       - name: Lint code
         run: |
           yarn lint
+
+      - name: Check new version
+        id: check-version
+        run: |
+          published_version=`git describe --abbrev=0 --tags`
+          echo "Published version: $published_version"
+          current_version=`npx -c 'echo "v$npm_package_version"'`
+          echo "Current version: $current_version"
+          if [ "$published_version" = "$current_version" ]; then
+            echo ::set-output name=new-version::'true'
+          else
+            echo ::set-output name=new-version::'false'
+          fi
+
+      - name: Github Tag Bump
+        if: steps.check-version.outputs.new-version == 'true'
+        uses: anothrNick/github-tag-action@1.8.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
