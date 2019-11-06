@@ -52,7 +52,7 @@ jobs:
               --data '{
                 "tag_name": "$published_version",
                 "target_commitish": "master",
-                "name": "$published_version",
+                "name": "'"$published_version"'",
                 "body": "Description of the release",
                 "draft": true,
                 "prerelease": false
