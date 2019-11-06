@@ -54,7 +54,7 @@ jobs:
                 "target_commitish": "master",
                 "name": "'"$published_version"'",
                 "body": "Description of the release",
-                "draft": true,
+                "draft": false,
                 "prerelease": false
               }'
           fi
