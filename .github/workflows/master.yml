@@ -38,7 +38,7 @@ jobs:
       - name: Check new version
         id: check-version
         run: |
-          published_version=`git describe --abbrev=0 --tags`
+          published_version=`git describe --abbrev=0 --tags --always`
           echo "Published version: $published_version"
           current_version=`npx -c 'echo "v$npm_package_version"'`
           echo "Current version: $current_version"
