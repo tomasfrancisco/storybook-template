@@ -1,6 +1,6 @@
 {
   "name": "storybook-template",
-  "version": "0.0.0-alpha",
+  "version": "0.0.1-alpha",
   "description": "Storybook + React + Typescript = ♥",
   "license": "MIT",
   "author": "@tomasfrancisco",
