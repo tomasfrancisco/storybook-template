@@ -1,0 +1,13 @@
+name: Deploy
+on: ['deployment']
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Release
+        run: |
+          echo "Run Release"

@@ -1,0 +1,4 @@
+production:
+  environment: production
+  auto_deploy_on: refs/tags/*.*.*
+  production_environment: true

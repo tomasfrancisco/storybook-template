@@ -1,0 +1,61 @@
+name: Master
+on: [push]
+
+jobs:
+  lint:
+    name: Code linting
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Read .nvmrc
+        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+        id: nvm
+
+      - name: Set Node Version
+        uses: actions/setup-node@v1
+        with:
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
+      - name: Cache dependencies
+        id: node_modules-cache
+        uses: actions/cache@preview
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
+
+      - name: Install dependencies
+        if: steps.node_modules-cache.outputs.cache-hit != 'true'
+        run: |
+          yarn install
+
+      - name: Lint code
+        run: |
+          yarn lint
+
+      - name: Check new version
+        id: check-version
+        run: |
+          git fetch --tags
+          published_version=`git describe --abbrev=0 --tags --always`
+          echo "Published version: $published_version"
+          current_version=`npx -c 'echo "$npm_package_version"'`
+          echo "Current version: $current_version"
+          if [ "$published_version" = "$current_version" ]; then
+            echo ::set-output name=new-version::'false'
+          else
+            curl --request POST \
+              --url https://api.github.com/repos/${{ github.repository }}/releases \
+              --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+              --header 'content-type: application/json' \
+              --data '{
+                "tag_name": "'"$current_version"'",
+                "target_commitish": "master",
+                "name": "'"$current_version"'",
+                "body": "Description of the release",
+                "draft": false,
+                "prerelease": false
+              }'
+          fi
