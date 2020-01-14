@@ -8,32 +8,32 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      # - name: Read .nvmrc
-      #   run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-      #   id: nvm
+      - name: Read .nvmrc
+        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+        id: nvm
 
-      # - name: Set Node Version
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: '${{ steps.nvm.outputs.NVMRC }}'
+      - name: Set Node Version
+        uses: actions/setup-node@v1
+        with:
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
 
-      # - name: Cache dependencies
-      #   id: node_modules-cache
-      #   uses: actions/cache@preview
-      #   with:
-      #     path: ./node_modules
-      #     key: ${{ runner.os }}-node_modules-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-node_modules-
+      - name: Cache dependencies
+        id: node_modules-cache
+        uses: actions/cache@preview
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
 
-      # - name: Install dependencies
-      #   if: steps.node_modules-cache.outputs.cache-hit != 'true'
-      #   run: |
-      #     yarn install
+      - name: Install dependencies
+        if: steps.node_modules-cache.outputs.cache-hit != 'true'
+        run: |
+          yarn install
 
-      # - name: Lint code
-      #   run: |
-      #     yarn lint
+      - name: Lint code
+        run: |
+          yarn lint
 
       - name: Check new version
         id: check-version
